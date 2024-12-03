@@ -1,75 +1,30 @@
-import {
-  Controller,
-  Get,
-  Param,
-  Post,
-  Query,
-  Body,
-  Put,
-  Delete,
-  HttpStatus,
-  HttpCode,
-} from '@nestjs/common';
-
-import { ParseIntPipe } from 'src/common/parse-int.pipe';
-import { CreateProductDto, UpdateProductDto } from 'src/dtos/products.dtos';
-import { ProductsService } from 'src/services/products.service';
+import { Controller, Get, Param, Post, Query } from '@nestjs/common';
 
 @Controller('products')
 export class ProductsController {
-  constructor(private productsService: ProductsService) {}
-
   @Get('')
-  getProducts(
+  getProduct(
     @Query('limit') limit = 100,
     @Query('offset') offset = 0,
     @Query('brand') brand: string,
   ) {
-    //return {
-    //  message: `products ${limit} - ${offset} - ${brand}`,
-    //};
-    return this.productsService.findAll();
+    return `products ${limit} - ${offset} - ${brand}`;
   }
 
   @Get('filter')
   getProductsFilter() {
-    return {
-      message: `product filter route`,
-    };
+    return `product filter route`;
   }
 
   @Get(':id')
-  @HttpCode(HttpStatus.ACCEPTED)
-  getProduct(@Param('id', ParseIntPipe) id: number) {
-    //response.status(202).send({
-    //  message: `product ${id}`,
-    //});
-    return this.productsService.findOne(id);
+  getProducts(@Param('id') id: string) {
+    return `product ${id}`;
   }
 
   @Post()
-  create(@Body() payload: CreateProductDto) {
-    //return {
-    //  message: 'acción de crear',
-    //  payload: payload,
-    //};
-    return this.productsService.create(payload);
-  }
-  @Put(':id')
-  update(@Param('id') id: number, @Body() payload: UpdateProductDto) {
-    //return {
-    //  message: 'accion de editar',
-    //  payload: payload,
-    //  id: id,
-    //};
-    return this.productsService.update(id, payload);
-  }
-
-  @Delete(':id')
-  delete(@Param('id') id: number) {
-    /* return {
-      id: id,
-    }; */
-    return this.productsService.remove(id);
+  create() {
+    return {
+      message: 'acción de crear',
+    };
   }
 }

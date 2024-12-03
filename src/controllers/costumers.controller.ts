@@ -4,8 +4,6 @@ import { Controller, Get } from '@nestjs/common';
 export class CostumersController {
   @Get('')
   getProduct() {
-    return {
-      message: `costumers`,
-    };
+    return `costumers`;
   }
 }
